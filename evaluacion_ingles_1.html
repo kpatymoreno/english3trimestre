@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¡Aventura de Inglés! - What to Wear</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Lilita+One&display=swap" rel="stylesheet">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --yellow: #FFD93D;
+    --pink: #FF6B9D;
+    --blue: #4ECDC4;
+    --purple: #A78BFA;
+    --orange: #FF8C42;
+    --green: #6BCB77;
+    --red: #FF5252;
+    --cream: #FFF8E7;
+    --dark: #2D3047;
+    --shadow: rgba(45, 48, 71, 0.15);
+  }
+
+  body {
+    font-family: 'Fredoka', sans-serif;
+    background: var(--cream);
+    background-image:
+      radial-gradient(circle at 10% 20%, rgba(255, 217, 61, 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(78, 205, 196, 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(255, 107, 157, 0.1) 0%, transparent 50%);
+    color: var(--dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+    padding: 20px 10px;
+  }
+
+  /* Floating decorative shapes */
+  .deco {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+    animation: float 8s ease-in-out infinite;
+  }
+  .deco-1 { top: 5%; left: 3%; font-size: 60px; animation-delay: 0s; }
+  .deco-2 { top: 15%; right: 5%; font-size: 50px; animation-delay: 1s; }
+  .deco-3 { bottom: 10%; left: 5%; font-size: 55px; animation-delay: 2s; }
+  .deco-4 { bottom: 20%; right: 3%; font-size: 45px; animation-delay: 3s; }
+  .deco-5 { top: 50%; left: 2%; font-size: 40px; animation-delay: 1.5s; }
+  .deco-6 { top: 60%; right: 2%; font-size: 50px; animation-delay: 2.5s; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
+  }
+
+  .container {
+    max-width: 850px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* SCREENS */
+  .screen {
+    display: none;
+    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .screen.active { display: block; }
+
+  @keyframes popIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  /* WELCOME SCREEN */
+  .welcome {
+    text-align: center;
+    background: white;
+    border-radius: 30px;
+    padding: 50px 30px;
+    box-shadow: 0 10px 0 var(--dark), 0 15px 30px var(--shadow);
+    border: 4px solid var(--dark);
+  }
+
+  .welcome h1 {
+    font-family: 'Lilita One', cursive;
+    font-size: clamp(2.2rem, 6vw, 3.8rem);
+    color: var(--pink);
+    text-shadow: 4px 4px 0 var(--yellow), 8px 8px 0 var(--dark);
+    margin-bottom: 10px;
+    line-height: 1;
+    letter-spacing: 2px;
+  }
+
+  .welcome h2 {
+    font-family: 'Lilita One', cursive;
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    color: var(--blue);
+    margin-bottom: 30px;
+  }
+
+  .welcome-emoji {
+    font-size: 100px;
+    display: inline-block;
+    animation: wave 2s ease-in-out infinite;
+    margin: 20px 0;
+  }
+
+  @keyframes wave {
+    0%, 100% { transform: rotate(-10deg); }
+    50% { transform: rotate(10deg); }
+  }
+
+  .welcome p {
+    font-size: 1.2rem;
+    color: var(--dark);
+    margin-bottom: 30px;
+    line-height: 1.5;
+  }
+
+  .name-input {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.3rem;
+    padding: 15px 25px;
+    border: 4px solid var(--dark);
+    border-radius: 50px;
+    background: var(--yellow);
+    color: var(--dark);
+    text-align: center;
+    width: 80%;
+    max-width: 350px;
+    margin-bottom: 20px;
+    outline: none;
+    font-weight: 500;
+    box-shadow: 0 5px 0 var(--dark);
+    transition: all 0.2s;
+  }
+  .name-input:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 0 var(--dark);
+  }
+
+  /* BUTTONS */
+  .btn {
+    font-family: 'Lilita One', cursive;
+    font-size: 1.5rem;
+    padding: 18px 45px;
+    border: 4px solid var(--dark);
+    border-radius: 50px;
+    background: var(--pink);
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 6px 0 var(--dark);
+    transition: all 0.15s;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 0 var(--dark);
+  }
+  .btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 var(--dark);
+  }
+  .btn-blue { background: var(--blue); }
+  .btn-green { background: var(--green); }
+  .btn-orange { background: var(--orange); }
+
+  /* QUESTION SCREEN */
+  .quiz-header {
+    background: white;
+    border-radius: 25px;
+    padding: 20px 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 6px 0 var(--dark);
+    border: 4px solid var(--dark);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  .section-badge {
+    font-family: 'Lilita One', cursive;
+    background: var(--yellow);
+    color: var(--dark);
+    padding: 8px 20px;
+    border-radius: 25px;
+    border: 3px solid var(--dark);
+    font-size: 1rem;
+  }
+
+  .progress-wrap {
+    flex: 1;
+    min-width: 150px;
+    height: 25px;
+    background: #f0f0f0;
+    border-radius: 25px;
+    border: 3px solid var(--dark);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--pink), var(--purple), var(--blue));
+    border-radius: 20px;
+    transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    width: 0%;
+  }
+
+  .score-badge {
+    font-family: 'Lilita One', cursive;
+    background: var(--green);
+    color: white;
+    padding: 8px 18px;
+    border-radius: 25px;
+    border: 3px solid var(--dark);
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .question-card {
+    background: white;
+    border-radius: 30px;
+    padding: 35px 30px;
+    box-shadow: 0 8px 0 var(--dark);
+    border: 4px solid var(--dark);
+    margin-bottom: 20px;
+  }
+
+  .question-title {
+    font-family: 'Lilita One', cursive;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    color: var(--dark);
+    text-align: center;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .question-instruction {
+    text-align: center;
+    color: var(--purple);
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    font-weight: 500;
+  }
+
+  .question-visual {
+    text-align: center;
+    margin: 20px 0 30px;
+  }
+
+  .big-emoji {
+    font-size: clamp(80px, 15vw, 130px);
+    display: inline-block;
+    animation: bounce 2s ease-in-out infinite;
+    filter: drop-shadow(0 8px 0 var(--shadow));
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .price-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--red);
+    color: white;
+    font-family: 'Lilita One', cursive;
+    font-size: 2rem;
+    padding: 15px 35px;
+    border-radius: 15px;
+    border: 4px solid var(--dark);
+    box-shadow: 0 5px 0 var(--dark);
+    margin-left: 15px;
+    transform: rotate(-5deg);
+  }
+
+  .item-with-price {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .person-with-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  .person-emoji {
+    font-size: 90px;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  .arrow {
+    font-size: 50px;
+    color: var(--pink);
+    animation: pointRight 1s ease-in-out infinite;
+  }
+
+  @keyframes pointRight {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(8px); }
+  }
+
+  .item-emoji {
+    font-size: 70px;
+    animation: bounce 2s ease-in-out infinite;
+    animation-delay: 0.2s;
+  }
+
+  /* OPTIONS */
+  .options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+  }
+
+  .options.options-1col {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .option {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    padding: 20px 15px;
+    border: 4px solid var(--dark);
+    border-radius: 20px;
+    background: white;
+    color: var(--dark);
+    cursor: pointer;
+    box-shadow: 0 5px 0 var(--dark);
+    transition: all 0.15s;
+    text-align: center;
+    position: relative;
+  }
+  .option:hover:not(.disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 0 var(--dark);
+    background: var(--yellow);
+  }
+  .option:active:not(.disabled) {
+    transform: translateY(2px);
+    box-shadow: 0 3px 0 var(--dark);
+  }
+  .option.correct {
+    background: var(--green);
+    color: white;
+    animation: correctPop 0.5s ease;
+  }
+  .option.wrong {
+    background: var(--red);
+    color: white;
+    animation: shake 0.5s ease;
+  }
+  .option.disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  @keyframes correctPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-10px); }
+    40%, 80% { transform: translateX(10px); }
+  }
+
+  /* FEEDBACK */
+  .feedback {
+    text-align: center;
+    margin-top: 25px;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .feedback-text {
+    font-family: 'Lilita One', cursive;
+    font-size: 1.8rem;
+    display: none;
+  }
+  .feedback-text.show {
+    display: block;
+    animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .feedback-text.correct { color: var(--green); }
+  .feedback-text.wrong { color: var(--red); }
+
+  .next-btn {
+    display: none;
+  }
+  .next-btn.show {
+    display: inline-block;
+    animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* FILL IN BLANK */
+  .fill-sentence {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 30px 0;
+    line-height: 1.8;
+  }
+
+  .blank {
+    display: inline-block;
+    min-width: 100px;
+    border-bottom: 4px solid var(--pink);
+    padding: 0 15px;
+    color: var(--pink);
+    font-family: 'Lilita One', cursive;
+  }
+
+  /* JAR SECTION (save/share/spend) */
+  .jars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin: 30px 0;
+  }
+
+  .jar {
+    background: var(--cream);
+    border: 4px solid var(--dark);
+    border-radius: 20px;
+    padding: 20px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 5px 0 var(--dark);
+  }
+  .jar:hover:not(.disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 0 var(--dark);
+  }
+  .jar.correct {
+    background: var(--green);
+    color: white;
+    animation: correctPop 0.5s ease;
+  }
+  .jar.wrong {
+    background: var(--red);
+    color: white;
+    animation: shake 0.5s ease;
+  }
+  .jar-emoji { font-size: 50px; display: block; margin-bottom: 10px; }
+  .jar-label {
+    font-family: 'Lilita One', cursive;
+    font-size: 1.3rem;
+  }
+
+  /* RESULTS SCREEN */
+  .results {
+    text-align: center;
+    background: white;
+    border-radius: 30px;
+    padding: 50px 30px;
+    box-shadow: 0 10px 0 var(--dark), 0 15px 30px var(--shadow);
+    border: 4px solid var(--dark);
+  }
+
+  .trophy {
+    font-size: 130px;
+    animation: trophy-spin 3s ease-in-out infinite;
+    display: inline-block;
+    filter: drop-shadow(0 10px 0 var(--shadow));
+  }
+
+  @keyframes trophy-spin {
+    0%, 100% { transform: rotate(-5deg) scale(1); }
+    50% { transform: rotate(5deg) scale(1.05); }
+  }
+
+  .results h1 {
+    font-family: 'Lilita One', cursive;
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--orange);
+    text-shadow: 3px 3px 0 var(--yellow), 6px 6px 0 var(--dark);
+    margin: 20px 0;
+    letter-spacing: 1px;
+  }
+
+  .final-score {
+    font-family: 'Lilita One', cursive;
+    font-size: 4rem;
+    color: var(--pink);
+    margin: 20px 0;
+  }
+
+  .stars {
+    margin: 20px 0;
+    font-size: 50px;
+    letter-spacing: 5px;
+  }
+
+  .results-message {
+    font-size: 1.3rem;
+    color: var(--dark);
+    margin: 20px 0 30px;
+    font-weight: 500;
+  }
+
+  /* Confetti */
+  .confetti {
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    pointer-events: none;
+    z-index: 9999;
+    animation: confettiFall 3s linear forwards;
+  }
+
+  @keyframes confettiFall {
+    0% {
+      transform: translateY(-100vh) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh) rotate(720deg);
+      opacity: 0;
+    }
+  }
+
+  /* MOBILE */
+  @media (max-width: 600px) {
+    .options { grid-template-columns: 1fr; }
+    .jars { grid-template-columns: 1fr; }
+    .quiz-header { flex-direction: column; }
+    .progress-wrap { width: 100%; }
+    .question-card { padding: 25px 20px; }
+    .welcome { padding: 35px 20px; }
+    .price-tag { font-size: 1.5rem; padding: 12px 25px; }
+  }
+
+  /* Custom CSS visuals for items without good emojis */
+  .belt-visual {
+    display: inline-block;
+    width: 240px;
+    height: 38px;
+    background: linear-gradient(180deg, #C0392B 0%, #8B2818 100%);
+    border: 4px solid var(--dark);
+    border-radius: 8px;
+    position: relative;
+    margin: 25px 0;
+    box-shadow: 0 6px 0 var(--shadow);
+    animation: bounce 2s ease-in-out infinite;
+  }
+  .belt-visual::before {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    background: var(--dark);
+    border-radius: 50%;
+    box-shadow: 25px 0 var(--dark), 50px 0 var(--dark);
+  }
+  .belt-visual::after {
+    content: '';
+    position: absolute;
+    right: 35px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 48px;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    border: 4px solid var(--dark);
+    border-radius: 4px;
+  }
+
+  .necklace-visual {
+    display: inline-block;
+    width: 140px;
+    height: 100px;
+    border: 6px solid #FFB347;
+    border-top-color: transparent;
+    border-radius: 50%;
+    position: relative;
+    margin: 30px 0 50px;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  .necklace-visual::after {
+    content: '💎';
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 50px;
+  }
+
+  .bracelet-visual {
+    display: inline-block;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: repeating-conic-gradient(
+      var(--blue) 0deg 30deg,
+      var(--yellow) 30deg 60deg,
+      var(--pink) 60deg 90deg,
+      var(--purple) 90deg 120deg
+    );
+    border: 6px solid var(--dark);
+    margin: 25px 0;
+    box-shadow: 0 6px 0 var(--shadow);
+    animation: bounce 2s ease-in-out infinite;
+    position: relative;
+  }
+  .bracelet-visual::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    background: var(--cream);
+    border: 4px solid var(--dark);
+    border-radius: 50%;
+  }
+
+  .raincoat-visual {
+    display: inline-block;
+    position: relative;
+    margin: 20px 0;
+    padding: 20px 40px;
+  }
+  .raincoat-svg {
+    width: clamp(160px, 32vw, 220px);
+    height: auto;
+    display: inline-block;
+    filter: drop-shadow(0 8px 0 var(--shadow));
+    animation: bounce 2s ease-in-out infinite;
+  }
+  .raincoat-visual .drop {
+    position: absolute;
+    font-size: 32px;
+    animation: rainFall 1.8s ease-in infinite;
+    z-index: 2;
+  }
+  .raincoat-visual .drop:nth-child(1) { left: 5%; top: 0; animation-delay: 0s; }
+  .raincoat-visual .drop:nth-child(2) { right: 5%; top: 10px; animation-delay: 0.5s; }
+  .raincoat-visual .drop:nth-child(3) { left: 25%; top: -10px; animation-delay: 1s; }
+  .raincoat-visual .drop:nth-child(4) { right: 25%; top: 5px; animation-delay: 1.5s; }
+
+  @keyframes rainFall {
+    0% { transform: translateY(-30px); opacity: 0; }
+    30% { opacity: 1; }
+    100% { transform: translateY(60px); opacity: 0; }
+  }
+
+  .big-number {
+    font-family: 'Lilita One', cursive;
+    font-size: clamp(80px, 18vw, 140px);
+    display: inline-block;
+    animation: bounce 2s ease-in-out infinite;
+    text-shadow: 5px 5px 0 var(--yellow), 10px 10px 0 var(--dark);
+    padding: 10px 30px;
+    letter-spacing: 3px;
+  }
+  .number-purple { color: var(--purple); }
+  .number-blue { color: var(--blue); }
+  .number-pink { color: var(--pink); }
+  .number-orange { color: var(--orange); }
+  .number-green { color: var(--green); }
+  .number-red { color: var(--red); }
+
+  .math-visual {
+    font-family: 'Lilita One', cursive;
+    font-size: clamp(50px, 10vw, 80px);
+    color: var(--orange);
+    text-shadow: 3px 3px 0 var(--dark);
+    padding: 20px;
+    background: var(--cream);
+    border: 4px dashed var(--orange);
+    border-radius: 25px;
+    display: inline-block;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  .sweater-svg {
+    width: clamp(150px, 30vw, 200px);
+    height: auto;
+    display: inline-block;
+    margin: 20px 0;
+    filter: drop-shadow(0 8px 0 var(--shadow));
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  /* Speech bubble for instructions */
+  .helper-tip {
+    background: var(--blue);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 20px;
+    border: 3px solid var(--dark);
+    font-weight: 500;
+    display: inline-block;
+    margin: 10px 0;
+    box-shadow: 0 4px 0 var(--dark);
+    font-size: 1rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- Decorative floating elements -->
+<div class="deco deco-1">⭐</div>
+<div class="deco deco-2">🎈</div>
+<div class="deco deco-3">🌟</div>
+<div class="deco deco-4">✨</div>
+<div class="deco deco-5">🎨</div>
+<div class="deco deco-6">🦋</div>
+
+<div class="container">
+
+  <!-- WELCOME SCREEN -->
+  <div class="screen active" id="welcome-screen">
+    <div class="welcome">
+      <div class="welcome-emoji">👕</div>
+      <h1>What to Wear?</h1>
+      <h2>¡Aventura de Inglés!</h2>
+      <p>¡Hola! 👋<br>¿Listo para una aventura de aprendizaje?<br>Vamos a aprender sobre <strong>ropa, números y más</strong>!</p>
+      <input type="text" class="name-input" id="player-name" placeholder="¿Cómo te llamas?" maxlength="15">
+      <br>
+      <button class="btn" onclick="startQuiz()">¡Empezar! 🚀</button>
+    </div>
+  </div>
+
+  <!-- QUIZ SCREEN -->
+  <div class="screen" id="quiz-screen">
+    <div class="quiz-header">
+      <div class="section-badge" id="section-badge">Section 1</div>
+      <div class="progress-wrap">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+      <div class="score-badge">⭐ <span id="score">0</span></div>
+    </div>
+
+    <div class="question-card">
+      <h2 class="question-title" id="question-title">Question</h2>
+      <p class="question-instruction" id="question-instruction"></p>
+      <div class="question-visual" id="question-visual"></div>
+      <div class="options" id="options-container"></div>
+      <div class="feedback">
+        <div class="feedback-text" id="feedback-text"></div>
+        <button class="btn btn-blue next-btn" id="next-btn" onclick="nextQuestion()">Siguiente ➡️</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS SCREEN -->
+  <div class="screen" id="results-screen">
+    <div class="results">
+      <div class="trophy" id="trophy">🏆</div>
+      <h1 id="results-title">¡Excelente!</h1>
+      <div class="stars" id="stars">⭐⭐⭐</div>
+      <div class="final-score"><span id="final-score">0</span> / <span id="total-score">0</span></div>
+      <p class="results-message" id="results-message">¡Buen trabajo!</p>
+      <button class="btn btn-orange" onclick="restartQuiz()">Jugar otra vez 🔄</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // QUIZ DATA
+  const questions = [
+    // ====== SECTION 1: VOCABULARY (Clothing) — 13 questions ======
+    {
+      section: "👕 Vocabulary",
+      title: "What is this?",
+      instruction: "¿Qué es esto en inglés?",
+      visual: '<span class="big-emoji">🕶️</span>',
+      options: ["sunglasses", "scarf", "gloves", "shoes"],
+      answer: 0
+    },
+    {
+      section: "👕 Vocabulary",
+      title: "What is this?",
+      instruction: "¿Qué es esto en inglés?",
+      visual: '<span class="big-emoji">🧣</span>',
+      options: ["jeans", "scarf", "belt", "shoes"],
+      answer: 1
+    },
+    {
+      section: "👕 Vocabulary",
+      title: "What are these?",
+      instruction: "¿Qué son estos en inglés?",
+      visual: '<span class="big-emoji">👖</span>',
+      options: ["sweater", "gloves", "jeans", "socks"],
+      answer: 2
+    },
+    {
+      section: "👕 Vocabulary",
+      title: "What are these?",
+      instruction: "¿Qué son estos en inglés?",
+      visual: '<span class="big-emoji">🧤</span>',
+      options: ["shoes", "gloves", "scarf", "bracelets"],
+      answer: 1
+    },
+    {
+      section: "👕 Vocabulary",
+      title: "What is this?",
+      instruction: "¿Qué es esto en inglés?",
+      visual: '<span class="big-emoji">🧥</span>',
+      options: ["raincoat", "shorts", "necklace", "coat"],
+      answer: 3
+    },
+    {
+      section: "👕 Vocabulary",
+      title: "What is this? It's rainy! ☔",
+      instruction: "Para los días de lluvia...",
+      visual: '<div class="raincoat-visual"><span class="drop">💧</span><span class="drop">💧</span><span class="drop">💧</span><span class="drop">💧</span><svg class="raincoat-svg" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg"><path d="M 78 95 L 78 215 L 162 215 L 162 95 Z" fill="#FFD93D" stroke="#2D3047" stroke-width="4" stroke-linejoin="round"/><path d="M 78 95 L 32 110 L 28 178 L 60 184 L 78 115 Z" fill="#FFD93D" stroke="#2D3047" stroke-width="4" stroke-linejoin="round"/><path d="M 162 95 L 208 110 L 212 178 L 180 184 L 162 115 Z" fill="#FFD93D" stroke="#2D3047" stroke-width="4" stroke-linejoin="round"/><path d="M 75 100 Q 72 30 120 25 Q 168 30 165 100 L 155 95 Q 158 45 120 40 Q 82 45 85 95 Z" fill="#FFC107" stroke="#2D3047" stroke-width="4" stroke-linejoin="round"/><ellipse cx="120" cy="65" rx="32" ry="26" fill="#D68910" stroke="#2D3047" stroke-width="3"/><line x1="95" y1="92" x2="92" y2="118" stroke="#2D3047" stroke-width="3" stroke-linecap="round"/><line x1="145" y1="92" x2="148" y2="118" stroke="#2D3047" stroke-width="3" stroke-linecap="round"/><circle cx="92" cy="121" r="5" fill="#FF6B6B" stroke="#2D3047" stroke-width="2"/><circle cx="148" cy="121" r="5" fill="#FF6B6B" stroke="#2D3047" stroke-width="2"/><line x1="120" y1="105" x2="120" y2="215" stroke="#2D3047" stroke-width="2" stroke-dasharray="4,3"/><circle cx="120" cy="118" r="5" fill="#FF6B6B" stroke="#2D3047" stroke-width="2"/><circle cx="120" cy="143" r="5" fill="#FF6B6B" stroke="#2D3047" stroke-width="2"/><circle cx="120" cy="168" r="5" fill="#FF6B6B" stroke="#2D3047" stroke-width="2"/><circle cx="120" cy="193" r="5" fill="#FF6B6B" stroke="#2D3047" stroke-width="2"/><path d="M 88 168 L 88 193 L 108 193 L 108 168" fill="none" stroke="#2D3047" stroke-width="3" stroke-linejoin="round"/><path d="M 132 168 L 132 193 L 152 193 L 152 168" fill="none" stroke="#2D3047" stroke-width="3" stroke-linejoin="round"/><rect x="26" y="172" width="38" height="14" fill="#D68910" stroke="#2D3047" stroke-width="3" rx="3"/><rect x="176" y="172" width="38" height="14" fill="#D68910" stroke="#2D3047" stroke-width="3" rx="3"/><rect x="76" y="208" width="88" height="10" fill="#D68910" stroke="#2D3047" stroke-width="3"/><ellipse cx="95" cy="130" rx="6" ry="3" fill="#FFF8E7" opacity="0.6"/><ellipse cx="145" cy="155" rx="5" ry="2" fill="#FFF8E7" opacity="0.6"/></svg></div>',
+      options: ["coat", "raincoat", "sweater", "jacket"],
+      answer: 1
+    },
+    {
+      section: "👕 Vocabulary",
+      title: "What is this?",
+      instruction: "Va alrededor de tu cintura 👇",
+      visual: '<div class="belt-visual"></div>',
+      options: ["scarf", "shoes", "belt", "necklace"],
+      answer: 2
+    },
+    {
+      section: "👕 Vocabulary",
+      title: "What is this?",
+      instruction: "¡Para nadar en la piscina! 🏊",
+      visual: '<span class="big-emoji">🩱</span>',
+      options: ["sweater", "shorts", "raincoat", "bathing suit"],
+      answer: 3
+    },
+    {
+      section: "👕 Vocabulary",
+      title: "What is this?",
+      instruction: "Va en tu muñeca 💪",
+      visual: '<div class="bracelet-visual"></div>',
+      options: ["necklace", "bracelet", "ring", "belt"],
+      answer: 1
+    },
+    {
+      section: "👕 Vocabulary",
+      title: "What is this?",
+      instruction: "Va en tu cuello 💎",
+      visual: '<div class="necklace-visual"></div>',
+      options: ["bracelet", "scarf", "necklace", "belt"],
+      answer: 2
+    },
+    {
+      section: "👕 Vocabulary",
+      title: "What is this?",
+      instruction: "Calientito para el frío 🥶",
+      visual: '<svg class="sweater-svg" viewBox="0 0 220 200" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="argyle" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><polygon points="20,5 35,20 20,35 5,20" fill="#FFD93D" stroke="#2D3047" stroke-width="1.5"/></pattern></defs><path d="M 60 50 L 30 70 L 20 130 L 50 140 L 55 75 L 65 70 L 75 55 L 145 55 L 155 70 L 165 75 L 170 140 L 200 130 L 190 70 L 160 50 L 145 45 L 130 60 L 90 60 L 75 45 Z" fill="#E74C3C" stroke="#2D3047" stroke-width="4" stroke-linejoin="round"/><path d="M 75 55 L 90 60 L 130 60 L 145 55 L 145 75 L 75 75 Z" fill="url(#argyle)" stroke="#2D3047" stroke-width="2" opacity="0.6"/><path d="M 65 75 L 65 175 L 155 175 L 155 75" fill="#E74C3C" stroke="#2D3047" stroke-width="4"/><polygon points="110,90 125,105 110,120 95,105" fill="#FFD93D" stroke="#2D3047" stroke-width="2.5"/><polygon points="85,115 100,130 85,145 70,130" fill="#4ECDC4" stroke="#2D3047" stroke-width="2.5"/><polygon points="135,115 150,130 135,145 120,130" fill="#4ECDC4" stroke="#2D3047" stroke-width="2.5"/><polygon points="110,140 125,155 110,170 95,155" fill="#FFD93D" stroke="#2D3047" stroke-width="2.5"/><path d="M 65 175 L 155 175 L 155 185 L 65 185 Z" fill="#A03020" stroke="#2D3047" stroke-width="3"/><path d="M 20 130 L 50 140 L 50 150 L 20 140 Z" fill="#A03020" stroke="#2D3047" stroke-width="3"/><path d="M 200 130 L 170 140 L 170 150 L 200 140 Z" fill="#A03020" stroke="#2D3047" stroke-width="3"/><path d="M 90 60 Q 110 72 130 60" fill="none" stroke="#2D3047" stroke-width="3"/></svg>',
+      options: ["sweater", "socks", "shorts", "gloves"],
+      answer: 0
+    },
+    {
+      section: "👕 Vocabulary",
+      title: "What are these?",
+      instruction: "Van en tus pies 🦶",
+      visual: '<span class="big-emoji">🧦</span>',
+      options: ["shoes", "shorts", "socks", "gloves"],
+      answer: 2
+    },
+    {
+      section: "👕 Vocabulary",
+      title: "What are these?",
+      instruction: "Pantalones cortos para el verano ☀️",
+      visual: '<span class="big-emoji">🩳</span>',
+      options: ["jeans", "shorts", "socks", "scarf"],
+      answer: 1
+    },
+
+    // ====== SECTION 2: NUMBERS — All numbers 30 to 100 ======
+    {
+      section: "🔢 Numbers (30-100)",
+      title: "How do you say...?",
+      instruction: "¿Cómo se dice este número?",
+      visual: '<span class="big-number number-purple">30</span>',
+      options: ["thirteen", "thirty", "three", "thirsty"],
+      answer: 1
+    },
+    {
+      section: "🔢 Numbers (30-100)",
+      title: "How do you say...?",
+      instruction: "¿Cómo se dice este número?",
+      visual: '<span class="big-number number-blue">40</span>',
+      options: ["fourteen", "four", "fifty", "forty"],
+      answer: 3
+    },
+    {
+      section: "🔢 Numbers (30-100)",
+      title: "How do you say...?",
+      instruction: "¿Cómo se dice este número?",
+      visual: '<span class="big-number number-green">50</span>',
+      options: ["fifteen", "fifty", "five", "fourty"],
+      answer: 1
+    },
+    {
+      section: "🔢 Numbers (30-100)",
+      title: "How do you say...?",
+      instruction: "¿Cómo se dice este número?",
+      visual: '<span class="big-number number-orange">60</span>',
+      options: ["six", "sixteen", "sixty", "seventy"],
+      answer: 2
+    },
+    {
+      section: "🔢 Numbers (30-100)",
+      title: "How do you say...?",
+      instruction: "¿Cómo se dice este número?",
+      visual: '<span class="big-number number-red">70</span>',
+      options: ["seventeen", "seven", "seventy", "sixty"],
+      answer: 2
+    },
+    {
+      section: "🔢 Numbers (30-100)",
+      title: "How do you say...?",
+      instruction: "¿Cómo se dice este número?",
+      visual: '<span class="big-number number-purple">80</span>',
+      options: ["eighteen", "eighty", "eight", "eightieth"],
+      answer: 1
+    },
+    {
+      section: "🔢 Numbers (30-100)",
+      title: "How do you say...?",
+      instruction: "¿Cómo se dice este número?",
+      visual: '<span class="big-number number-pink">90</span>',
+      options: ["nineteen", "nine", "ninety", "ninetieth"],
+      answer: 2
+    },
+    {
+      section: "🔢 Numbers (30-100)",
+      title: "How do you say...?",
+      instruction: "¿Cómo se dice este número?",
+      visual: '<span class="big-number number-blue">100</span>',
+      options: ["one hundred", "one thousand", "ninety", "ten"],
+      answer: 0
+    },
+
+    // ====== SECTION 3: MATH TIME — 2 questions ======
+    {
+      section: "🧮 Math Time!",
+      title: "Solve the math!",
+      instruction: "thirty + thirty = ?",
+      visual: '<div class="math-visual">30 + 30 = ?</div>',
+      options: ["fifty", "sixty", "seventy", "forty"],
+      answer: 1
+    },
+    {
+      section: "🧮 Math Time!",
+      title: "Solve the math!",
+      instruction: "fifty + fifty = ?",
+      visual: '<div class="math-visual">50 + 50 = ?</div>',
+      options: ["ninety", "eighty", "one hundred", "fifty"],
+      answer: 2
+    },
+
+    // SECTION 3: HOW MUCH?
+    {
+      section: "💰 How Much?",
+      title: "How much ___ the belt?",
+      instruction: "Completa con IS o ARE",
+      visual: '<div class="item-with-price"><span class="big-emoji">👔</span><span class="price-tag">$50</span></div>',
+      options: ["is", "are"],
+      answer: 0
+    },
+    {
+      section: "💰 How Much?",
+      title: "How much ___ the jeans?",
+      instruction: "Completa con IS o ARE",
+      visual: '<div class="item-with-price"><span class="big-emoji">👖</span><span class="price-tag">$100</span></div>',
+      options: ["is", "are"],
+      answer: 1
+    },
+    {
+      section: "💰 How Much?",
+      title: "How much is the sweater?",
+      instruction: "¿Cómo respondes? Mira el precio 👀",
+      visual: '<div class="item-with-price"><span class="big-emoji">👕</span><span class="price-tag">$70</span></div>',
+      options: ["It's seventy dollars.", "They're seventy dollars.", "It's seventeen dollars.", "It's seven dollars."],
+      answer: 0
+    },
+    {
+      section: "💰 How Much?",
+      title: "How much are the socks?",
+      instruction: "¿Cómo respondes? Mira el precio 👀",
+      visual: '<div class="item-with-price"><span class="big-emoji">🧦</span><span class="price-tag">$30</span></div>',
+      options: ["It's thirty dollars.", "They're thirteen dollars.", "They're thirty dollars.", "They're three dollars."],
+      answer: 2
+    },
+
+    // SECTION 4: WHOSE?
+    {
+      section: "🎀 Whose is it?",
+      title: "Whose necklace is this?",
+      instruction: "¿De quién es? Mira a la niña 👇",
+      visual: '<div class="person-with-item"><span class="person-emoji">👧</span><span class="arrow">➡️</span><span class="item-emoji">📿</span></div>',
+      options: ["It's his.", "It's hers.", "It's mine.", "They're hers."],
+      answer: 1
+    },
+    {
+      section: "🎀 Whose is it?",
+      title: "Whose sunglasses are these?",
+      instruction: "¿De quién son? Mira al niño 👇",
+      visual: '<div class="person-with-item"><span class="person-emoji">👦</span><span class="arrow">➡️</span><span class="item-emoji">🕶️</span></div>',
+      options: ["It's his.", "They're hers.", "They're his.", "It's mine."],
+      answer: 2
+    },
+    {
+      section: "🎀 Whose is it?",
+      title: "Whose gloves are these?",
+      instruction: "¿De quién son? Mira a la niña 👇",
+      visual: '<div class="person-with-item"><span class="person-emoji">👧</span><span class="arrow">➡️</span><span class="item-emoji">🧤</span></div>',
+      options: ["They're hers.", "They're his.", "It's hers.", "It's mine."],
+      answer: 0
+    },
+
+    // SECTION 5: VALUES (Save, Share, Spend)
+    {
+      section: "💖 Cam's Values",
+      title: "I put money in my piggy bank 🐷",
+      instruction: "¿Qué hago con el dinero?",
+      visual: '<span class="big-emoji">🏦</span>',
+      options: ["save", "share", "spend"],
+      answer: 0
+    },
+    {
+      section: "💖 Cam's Values",
+      title: "I give money to help others ❤️",
+      instruction: "¿Qué hago con el dinero?",
+      visual: '<span class="big-emoji">🤝</span>',
+      options: ["save", "share", "spend"],
+      answer: 1
+    },
+    {
+      section: "💖 Cam's Values",
+      title: "I buy a new toy at the store 🧸",
+      instruction: "¿Qué hago con el dinero?",
+      visual: '<span class="big-emoji">🛍️</span>',
+      options: ["save", "share", "spend"],
+      answer: 2
+    }
+  ];
+
+  let currentQuestion = 0;
+  let score = 0;
+  let playerName = "";
+  let answered = false;
+
+  function startQuiz() {
+    const nameInput = document.getElementById('player-name');
+    playerName = nameInput.value.trim() || "Friend";
+    document.getElementById('welcome-screen').classList.remove('active');
+    document.getElementById('quiz-screen').classList.add('active');
+    document.getElementById('total-score').textContent = questions.length;
+    showQuestion();
+  }
+
+  function showQuestion() {
+    answered = false;
+    const q = questions[currentQuestion];
+
+    // Update header
+    document.getElementById('section-badge').textContent = q.section;
+    document.getElementById('score').textContent = score;
+    document.getElementById('progress-bar').style.width =
+      ((currentQuestion) / questions.length * 100) + '%';
+
+    // Update question
+    document.getElementById('question-title').textContent = q.title;
+    document.getElementById('question-instruction').textContent = q.instruction;
+    document.getElementById('question-visual').innerHTML = q.visual;
+
+    // Build options
+    const container = document.getElementById('options-container');
+    container.innerHTML = '';
+
+    // Use single column if options are very short (just is/are) or just 2 options
+    if (q.options.length === 2) {
+      container.classList.add('options-1col');
+    } else {
+      container.classList.remove('options-1col');
+    }
+
+    q.options.forEach((opt, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'option';
+      btn.textContent = opt;
+      btn.onclick = () => selectAnswer(idx, btn);
+      container.appendChild(btn);
+    });
+
+    // Reset feedback
+    document.getElementById('feedback-text').classList.remove('show', 'correct', 'wrong');
+    document.getElementById('next-btn').classList.remove('show');
+  }
+
+  function selectAnswer(idx, btn) {
+    if (answered) return;
+    answered = true;
+
+    const q = questions[currentQuestion];
+    const allOptions = document.querySelectorAll('.option');
+    allOptions.forEach(o => o.classList.add('disabled'));
+
+    const feedback = document.getElementById('feedback-text');
+
+    if (idx === q.answer) {
+      btn.classList.add('correct');
+      feedback.textContent = getRandomCorrectMessage();
+      feedback.classList.add('show', 'correct');
+      score++;
+      document.getElementById('score').textContent = score;
+      launchConfetti();
+      playSuccessSound();
+    } else {
+      btn.classList.add('wrong');
+      // Show the correct answer
+      allOptions[q.answer].classList.add('correct');
+      feedback.textContent = "❌ Try again next time! La correcta es: " + q.options[q.answer];
+      feedback.classList.add('show', 'wrong');
+      playWrongSound();
+    }
+
+    document.getElementById('next-btn').classList.add('show');
+  }
+
+  function nextQuestion() {
+    currentQuestion++;
+    if (currentQuestion < questions.length) {
+      showQuestion();
+    } else {
+      showResults();
+    }
+  }
+
+  function showResults() {
+    document.getElementById('quiz-screen').classList.remove('active');
+    document.getElementById('results-screen').classList.add('active');
+
+    document.getElementById('final-score').textContent = score;
+    document.getElementById('total-score').textContent = questions.length;
+
+    const percent = (score / questions.length) * 100;
+    let stars = '';
+    let title = '';
+    let message = '';
+    let trophy = '🏆';
+
+    if (percent >= 90) {
+      stars = '⭐⭐⭐⭐⭐';
+      title = `¡INCREÍBLE, ${playerName}!`;
+      message = "¡Eres un campeón del inglés! 🌟";
+      trophy = '🏆';
+      megaConfetti();
+    } else if (percent >= 70) {
+      stars = '⭐⭐⭐⭐';
+      title = `¡EXCELENTE, ${playerName}!`;
+      message = "¡Muy buen trabajo! Sigue así. 💪";
+      trophy = '🥇';
+      megaConfetti();
+    } else if (percent >= 50) {
+      stars = '⭐⭐⭐';
+      title = `¡BUEN TRABAJO, ${playerName}!`;
+      message = "Estás aprendiendo mucho. ¡Sigue practicando! 📚";
+      trophy = '🥈';
+    } else if (percent >= 30) {
+      stars = '⭐⭐';
+      title = `¡SIGUE INTENTANDO, ${playerName}!`;
+      message = "Practica un poco más. ¡Tú puedes! 💖";
+      trophy = '🥉';
+    } else {
+      stars = '⭐';
+      title = `¡NO TE RINDAS, ${playerName}!`;
+      message = "Repasa con tu maestro y vuelve a intentar. 🤗";
+      trophy = '🎯';
+    }
+
+    document.getElementById('stars').textContent = stars;
+    document.getElementById('results-title').textContent = title;
+    document.getElementById('results-message').textContent = message;
+    document.getElementById('trophy').textContent = trophy;
+  }
+
+  function restartQuiz() {
+    currentQuestion = 0;
+    score = 0;
+    document.getElementById('results-screen').classList.remove('active');
+    document.getElementById('welcome-screen').classList.add('active');
+    document.getElementById('player-name').value = playerName;
+  }
+
+  function getRandomCorrectMessage() {
+    const messages = [
+      "✅ ¡Correcto! Great job!",
+      "✅ ¡Muy bien! Excellent!",
+      "✅ ¡Perfecto! You're amazing!",
+      "✅ ¡Súper! Wonderful!",
+      "✅ ¡Bravo! Fantastic!",
+      "✅ ¡Genial! Awesome!"
+    ];
+    return messages[Math.floor(Math.random() * messages.length)];
+  }
+
+  // CONFETTI EFFECT
+  function launchConfetti() {
+    const colors = ['#FFD93D', '#FF6B9D', '#4ECDC4', '#A78BFA', '#FF8C42', '#6BCB77'];
+    for (let i = 0; i < 30; i++) {
+      const confetti = document.createElement('div');
+      confetti.className = 'confetti';
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+      confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+      confetti.style.animationDelay = Math.random() * 0.5 + 's';
+      confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+      document.body.appendChild(confetti);
+      setTimeout(() => confetti.remove(), 4000);
+    }
+  }
+
+  function megaConfetti() {
+    for (let i = 0; i < 5; i++) {
+      setTimeout(launchConfetti, i * 300);
+    }
+  }
+
+  // SOUND EFFECTS (using Web Audio API)
+  function playSuccessSound() {
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const notes = [523.25, 659.25, 783.99]; // C5, E5, G5
+      notes.forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.15, ctx.currentTime + i * 0.1);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.1 + 0.3);
+        osc.start(ctx.currentTime + i * 0.1);
+        osc.stop(ctx.currentTime + i * 0.1 + 0.3);
+      });
+    } catch (e) {}
+  }
+
+  function playWrongSound() {
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(200, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.3);
+      gain.gain.setValueAtTime(0.1, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.3);
+    } catch (e) {}
+  }
+
+  // Allow Enter to start quiz
+  document.getElementById('player-name').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') startQuiz();
+  });
+</script>
+
+</body>
+</html>
